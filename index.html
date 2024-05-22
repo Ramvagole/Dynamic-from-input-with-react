@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+
+    // Your  code will go here
+    function App(){
+        let [a,setVal]=React.useState("")
+        let [b,val]=React.useState([])
+        function submit(e){
+            e.preventDefault()
+            val([...b,a])
+            setVal("")
+        }
+        function remove(e,i){
+            b.splice(i,1)
+            console.log(b)
+            e.target.parentNode.remove()
+        }
+        return(
+            <>
+            <input type="text" value={a} onChange={(e)=>setVal(e.target.value)} placeholder="Enter the hobby"/>
+            <button onClick={submit}>Submit</button>
+            <h1>Hobby</h1>
+            <div>
+                {
+                    b.map((v,i)=>{
+                        return(
+                            <div key={i}>
+                                <h3>{v}</h3>
+                                <button onClick={(e)=>{remove(e,i)}}>delete</button>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            </>
+        )
+    }
+    ReactDOM.render(<App/>,document.getElementById("root"))
+  </script>
+</html>
